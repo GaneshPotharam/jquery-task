@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+ <body>
+   <div id="base"><h3>Jquery Puzzle</h3></div>
+   <div class="jumbotron">
+     <h2 style="text-align:center">Click the Image to Shuffle</h2> 
+                <div class="puZContainer">
+                        <div class="puZWrap">
+                            <img class="puZImg" src="https://images.pexels.com/photos/264109/pexels-photo-264109.jpeg?auto=format%2Ccompress&cs=tinysrgb&dpr=1&w=500"/>
+                            <div id="puZMain">
+                            </div> 
+                        </div>   
+                 </div>        
+   </div>
+  </body>
+  <script>
+  $(document).ready(function(){
+    $('#base').css({"background":"rgb(0, 102, 102)","height":"70px","width" : "100%"});
+    $('#base h3').css({"background":"rgb(153, 255, 204)","position":"absolute","display":"inline","margin-left":"250px","margin-top":"20px","padding":"5px","border-radius":"50px"});
+     $('#puZMain').css({"width": "450px","float": "left"});
+    $('.jumbotron').css({"height":"700px"})
+    $(".puZContainer").css({
+    "width": "100%",
+    "float": "left",
+    "height":"500px", 
+    "position": "relative",
+    "overflow": "hidden"
+  });
+  $('.puZWrap img').css({"max-width":"100%","float":"left","height":"300px"});
+ $('puZWrap').css({"height":"300px","padding":"1%","padding-top":"0","margin":"0 auto","box-sizing":"border-box","position":"relative"});
+  
+   var $container = $('.puZContainer');
+    var $puzmain = $('#puZMain');
+    var $puzimg = $('.puZImg');
+    var grid = 3; 
+    $puzmain.height($('.puZImg').height());
+    $('.puZWrap img').click(function(){
+        start(grid);
+        $('.puZImg').css({'opacity':'0.5'});
+    })
+    function start(x, y){
+            if(!y){
+                y = x;
+            }
+        var pieceWidth = $puzimg.width() / x;
+        var pieceHeight = $puzimg.height() / y;
+        var maxX = $puzmain.width() - pieceWidth;
+        var maxY = $puzmain.height() - pieceHeight;
+        for (var i=0; i<x; i++) {
+                for (var j=0; j<y; j++) {
+                var div =  $("<div class= 'snappuzzle-piece'>").css({
+                        width: pieceWidth,
+                        height: pieceHeight,
+                        position: 'absolute',
+                        left: Math.floor((Math.random()*(maxX+1))),
+                        top: Math.floor((Math.random()*(maxY+1))),
+                        zIndex: Math.floor((Math.random()*10)+1),
+                        backgroundImage: 'url(https://images.pexels.com/photos/264109/pexels-photo-264109.jpeg?auto=format%2Ccompress&cs=tinysrgb&dpr=1&w=500)',
+                        backgroundPosition: (-j*pieceWidth)+'px '+(-i*pieceHeight)+'px',
+                        backgroundSize: $puzimg.width()
+                     });
+                   $('#puZMain').append(div);
+                }
+            }
+        }
+  });
+  </script>
+</html>
